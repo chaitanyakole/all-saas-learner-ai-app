@@ -257,6 +257,8 @@ function VoiceAnalyser(props) {
       const sessionId = getLocalData("sessionId");
       const sub_session_id = getLocalData("sub_session_id");
       const tenantId = getLocalData("tenantId");
+      const cohortId = getLocalData("cohortId");
+
       const { originalText, contentType, contentId, currentLine } = props;
       const responseStartTime = new Date().getTime();
       let responseText = "";
@@ -288,6 +290,7 @@ function VoiceAnalyser(props) {
             contentId,
             contentType,
             tenantId,
+            cohortId,
             practice_duration: parseInt(loadToMicStartDuration.toFixed(0)),
             read_duration: parseInt(micDuration.toFixed(0)),
           }
