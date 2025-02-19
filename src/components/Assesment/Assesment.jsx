@@ -337,7 +337,7 @@ export const ProfileHeader = ({
   handleBack,
 }) => {
   const language = lang || getLocalData("lang");
-  const username = profileName || getLocalData("profileName");
+  const username = profileName || getLocalData("name").toUpperCase();
   const navigate = useNavigate();
   const [openMessageDialog, setOpenMessageDialog] = useState("");
 
@@ -453,7 +453,7 @@ export const ProfileHeader = ({
                     lineHeight: "25px",
                   }}
                 >
-                  {username ? username.split('@')[0] : ""}
+                  {username ? username.split("@")[0] : ""}
                 </span>
               </Box>
             </>
@@ -569,7 +569,9 @@ const Assesment = ({ discoverStart }) => {
         //   `${process.env.REACT_APP_VIRTUAL_ID_HOST}/${config.URLS.GET_VIRTUAL_ID}?username=${username}`
         // );
         const getMilestoneDetails = await axios.get(
-          `${process.env.REACT_APP_LEARNER_AI_APP_HOST}/${config.URLS.GET_MILESTONE}/${localStorage.getItem("userId")}?language=${lang}`
+          `${process.env.REACT_APP_LEARNER_AI_APP_HOST}/${
+            config.URLS.GET_MILESTONE
+          }/${localStorage.getItem("userId")}?language=${lang}`
         );
 
         localStorage.setItem(
@@ -579,9 +581,7 @@ const Assesment = ({ discoverStart }) => {
         setLevel(
           getMilestoneDetails?.data.data?.milestone_level?.replace("m", "")
         );
-        localStorage.getItem(
-          "userId"
-        );
+        localStorage.getItem("userId");
         let session_id = localStorage.getItem("sessionId");
 
         if (!session_id) {
@@ -591,7 +591,9 @@ const Assesment = ({ discoverStart }) => {
 
         localStorage.setItem("lang", lang || "ta");
         const getPointersDetails = await axios.get(
-          `${process.env.REACT_APP_LEARNER_AI_ORCHESTRATION_HOST}/${config.URLS.GET_POINTER}/${localStorage.getItem("userId")}/${session_id}?language=${lang}`
+          `${process.env.REACT_APP_LEARNER_AI_ORCHESTRATION_HOST}/${
+            config.URLS.GET_POINTER
+          }/${localStorage.getItem("userId")}/${session_id}?language=${lang}`
         );
         setPoints(getPointersDetails?.data?.result?.totalLanguagePoints || 0);
 
@@ -631,8 +633,8 @@ const Assesment = ({ discoverStart }) => {
   }, [lang]);
 
   const { userId } = useSelector((state) => {
-    console.log(state); 
-    return state.user;  
+    console.log(state);
+    return state.user;
   });
 
   const navigate = useNavigate();
